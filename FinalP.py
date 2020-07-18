@@ -32,10 +32,12 @@ class Store:
             print("*"*50)
             print("Por favor agrega una entrada: \n >")
             entrada=input()
-        else:
+        elif self.number==2:
             print("Por favor agrega una entrada: \n >")
             entrada=input()
-        
+        elif self.number>2:
+            print(">")
+            entrada=input()
         return entrada.split()    
 
     def exit(self,args):
@@ -54,8 +56,12 @@ class Store:
         esta función se encarga de llamar a otras funciones,
         si la lista que se le pase como arguemento contiene en la primera posición el nombre de la función 
         """
-        getattr(self,args[0])(args[1::])
-        
+        try:
+            getattr(self,args[0])(args[1::])
+        except Exception as ex:
+            print(ex)
+            # print(f'error :( {self.user}')
+            pass 
     def all(self,args):
         if self.products==[]:
             print('Aun no se han agregado productos')
@@ -76,7 +82,4 @@ class Store:
 my_store = Store()
 while my_store.loop:
     entrada=my_store.shell()
-    try:
-        my_store.aux_functions(entrada)
-    except AttributeError:
-        pass
+    my_store.aux_functions(entrada)
